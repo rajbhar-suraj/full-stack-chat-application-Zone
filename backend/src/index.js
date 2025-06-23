@@ -10,7 +10,7 @@ import path from 'path';
 
 dotenv.config()
 
-app.use(path.resolve())
+const __dirname = path.resolve()
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
