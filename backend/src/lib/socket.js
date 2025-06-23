@@ -7,16 +7,16 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: ['http://localhost:5173'],
+        origin: [process.env.CLIENT_URL || 'http://localhost:5173'],
     }
 })
+
+// for online users
+const userSocketMap = {} //userId = socketId
 
 export const getRecieverSocketId = (userId) =>{
     return userSocketMap[userId]
 }
-
-// for online users
-const userSocketMap = {} //userId = socketId
 
 io.on("connection", (socket) => {
     // console.log("A user connected", socket.id);
