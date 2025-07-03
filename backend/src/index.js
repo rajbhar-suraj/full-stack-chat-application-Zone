@@ -11,9 +11,8 @@ import { fileURLToPath } from 'url';
 
 dotenv.config()
 
-
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173",'https://full-stack-chat-application-hzju.onrender.com'],
     credentials: true
 }))
 
