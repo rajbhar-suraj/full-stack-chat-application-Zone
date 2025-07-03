@@ -7,10 +7,11 @@ import messageRoutes from './routes/message.route.js';
 import cookieParser from 'cookie-parser';
 import {server,app} from './lib/socket.js';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config()
 
-const __dirname = path.resolve()
+
 app.use(cors({
     origin: "http://localhost:5173",
     credentials: true
@@ -23,24 +24,17 @@ app.use(cookieParser())
 app.use('/api/auth', authRoutes)
 app.use('/api/messages', messageRoutes)
 
-app.get("/", (req, res) => {
-    res.send("Server running");
-  });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
 
-// if(process.env.NODE_ENV === "production"){
-//     app.use(express.static(path.join(__dirname,"../frontend/dist")))
+const frontendPath = path.resolve(__dirname, '../frontend/dist')
 
-//     app.get("*",(req,res)=>{
-//         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
-//     })
-// }
-if (process.env.NODE_ENV === "production") {
-    const staticPath = path.resolve(__dirname, "../frontend/dist");
-    app.use(express.static(staticPath));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(frontendPath))
 
-    app.get("*", (req, res) => {
-        res.sendFile(path.join(staticPath, "index.html"));
-    });
+    app.get(/^\/(?!api).*/, (req, res) => {
+        res.sendFile(path.join(frontendPath, 'index.html'))
+    })
 }
 
 const PORT = process.env.PORT
