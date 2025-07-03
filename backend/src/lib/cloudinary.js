@@ -19,15 +19,6 @@ export const storage = new CloudinaryStorage({
     }
 })
 
-// export const storage1 = new CloudinaryStorage({
-//     cloudinary: cloudinary,
-//     params: {
-//         folder: 'message_images',
-//         allowed_formats: ['jpeg', 'png', 'jpg']
-//     }
-// })
-
-// export const upload1 = multer({storage1})
 
 export const upload = multer({ storage })
 
