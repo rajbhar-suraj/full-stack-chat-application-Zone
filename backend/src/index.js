@@ -27,7 +27,7 @@ app.use('/api/messages', messageRoutes)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
 
-const frontendPath = path.resolve(__dirname, '../frontend/dist')
+const frontendPath = path.resolve(__dirname, '../../frontend/dist')
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(frontendPath))
